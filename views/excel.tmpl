@@ -1,0 +1,37 @@
+{{define "excel.tmpl"}}
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Adderss</th>
+
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Adderss</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    {{range $i,$u :=.user}}
+    <tr>
+        <td>{{$u.Name}}</td>
+        <td>{{$u.Password}}</td>
+        <td>{{$u.Email}}</td>
+        <td>{{$u.Phone}}</td>
+        <td>{{$u.Adderss}}</td>
+
+    </tr>
+    {{end}}
+
+
+    </tbody>
+</table>
+{{end}}

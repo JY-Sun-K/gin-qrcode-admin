@@ -1,0 +1,52 @@
+.postcard {
+    width: 800px;
+    height: 600px;
+    color: white;
+    position: relative;
+    background :#262626;
+    background-size: 600px;
+
+    box-shadow: 0px 7px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+.postcard::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    bottom: 30px;
+    right: 30px;
+    border: 3px solid white;
+}
+
+.text-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    z-index: 2;
+    padding: 15px 27px;
+}
+
+.postcard-text {
+    font-family: Arial, sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    /*background-image: url("https://images.unsplash.com/photo-1493514789931-586cb221d7a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f8ab2656cca1f3fadd0cc4e254b27c8d&auto=format&fit=crop&w=1351&q=80");*/
+    background-position: bottom left;
+    background-size: 600px;
+    position: absolute;
+    left: 0;
+    padding-left: 27px;
+    bottom: 0;
+    padding-bottom: 15px;
+    right: 140px;
+    z-index: 2;
+}
+
+p {
+    margin: 0;
+}
+

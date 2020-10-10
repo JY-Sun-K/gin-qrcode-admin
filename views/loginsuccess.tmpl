@@ -1,0 +1,44 @@
+{{define "loginsuccess.tmpl"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理</title>
+
+    <link rel="stylesheet" href="/static/navbarcssstyle.css">
+    <link rel="stylesheet" href="/static/postcrad.css">
+</head>
+<body>
+<section class="navigation">
+    <div class="nav-container">
+        <div class="brand">
+            <a href="#!">Logo</a>
+        </div>
+
+    </div>
+</section>
+<article>
+
+    <div class="postcard">
+        <img src="data:image/png;base64,{{.File}}" alt="" style="
+    margin-left: 300px;
+    margin-top: 150px;
+">
+        <div class="postcard-text">
+
+            <p>
+                {{.Name}}
+            </p>
+            <p>
+                {{.Email}}
+            </p>
+        </div>
+    </div>
+
+</article>
+
+</body>
+
+</html>
+{{end}}
