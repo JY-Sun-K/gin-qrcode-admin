@@ -14,7 +14,7 @@ type Claims struct {
 }
 
 func ReleaseToken(user models.User)(string ,error)  {
-	expirationTime := time.Now().Add(1*time.Hour)
+	expirationTime := time.Now().Add(30*time.Minute)
 	claims := &Claims{
 		UserId:         user.ID,
 		StandardClaims: jwt.StandardClaims{

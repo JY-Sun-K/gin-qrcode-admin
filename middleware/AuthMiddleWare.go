@@ -10,19 +10,20 @@ import (
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		log.Println(ctx.Request.Header)
-		tokenstring := ctx.Request.Header.Get("Authorization")
-
-		if tokenstring == "" {
+		//log.Println(ctx.Request.Header)
+		//tokenstring := ctx.Request.Header.Get("Authorization")
+		cookie,err:= ctx.Request.Cookie("user_cookie")
+		if err != nil {
 			ctx.JSON(http.StatusUnauthorized,gin.H{
 				"code":401,
 				"msg":"权限不住",
 			})
 			ctx.Abort()
-			return
 		}
+		log.Println(cookie)
 
-		tokenstring = tokenstring[7:]
+		tokenstring := cookie.Value
+		log.Println(tokenstring)
 		token ,claims,err :=jwt.ParseToken(tokenstring)
 		if err !=nil ||!token.Valid {
 			ctx.JSON(http.StatusUnauthorized,gin.H{

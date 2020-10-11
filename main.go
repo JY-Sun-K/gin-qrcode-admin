@@ -20,7 +20,7 @@ func main() {
 	r:=gin.Default()
 	r.LoadHTMLGlob("views/*")
 	r.StaticFS("/static",http.Dir("./static"))
-	r.Use(middleware.Cors())
+	//r.Use(middleware.Cors())
 	//r.Use(middleware.JwtVerify)
 
 

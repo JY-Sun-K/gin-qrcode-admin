@@ -51,7 +51,7 @@ func SiginPost(ctx *gin.Context)  {
 		fmt.Println("File reading error", err)
 	}
 	// 重定向，网页跳转
-	ctx.Redirect(http.StatusFound, "/loginsusscess")
+	ctx.Redirect(http.StatusFound, "/login")
 
 
 
@@ -131,9 +131,16 @@ func LoginPost(ctx *gin.Context) {
 		ctx.Abort()
 		return
 	}
-	log.Print(token)
-	ctx.Request.Header.Add("Authorization",token)
-	log.Println(ctx.Request.Header)
+
+	ctx.SetCookie("user_cookie",token,25*60,"/","127.0.0.1",false,true)
+	cookie ,err:=ctx.Request.Cookie("user_cookie")
+	if err != nil {
+		log.Println(err)
+	}
+	//log.Println(cookie)
+	//log.Print(token)
+	//ctx.Request.Header.Add("Authorization",token)
+	//log.Println(ctx.Request.Header)
 	//ctx.Next()
 	// 重定向，网页跳转
 	ctx.Redirect(http.StatusMovedPermanently, "/loginsusscess")
