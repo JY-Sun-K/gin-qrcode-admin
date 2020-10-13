@@ -22,15 +22,26 @@ func main() {
 	r.StaticFS("/static",http.Dir("./static"))
 	//r.Use(middleware.Cors())
 	//r.Use(middleware.JwtVerify)
+	userv1:=r.Group("/user")
+	{
+		userv1.GET("/signin", controller.SigninGet)
+		userv1.POST("/signin",controller.SiginPost)
 
 
-	r.GET("/signin", controller.SigninGet)
-	r.POST("/signin",controller.SiginPost)
-	r.GET("/index",controller.HomeGet)
+		userv1.GET("/loginsusscess",middleware.AuthMiddleware(),controller.LoginSuccess)
+		userv1.GET("/login",controller.LoginGet)
+		userv1.POST("/login",controller.LoginPost)
+	}
+	admin:=r.Group("/rootuser")
+	{
+		admin.GET("/index",controller.HomeGet)
+		admin.POST("/users/deluser",controller.DelUserPost)
+		admin.GET("/users/deluser",controller.DelUserGet)
+		admin.GET("/user",controller.VisitUser)
+	}
 
-	r.GET("/loginsusscess",middleware.AuthMiddleware(),controller.LoginSuccess)
-	r.GET("/login",controller.LoginGet)
-	r.POST("/login",controller.LoginPost)
+
+
 
 
 

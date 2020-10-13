@@ -20,7 +20,7 @@ func SigninGet(ctx *gin.Context)  {
 }
 
 func SiginPost(ctx *gin.Context)  {
-	db:=models.GetDB()
+	//db:=models.GetDB()
 
 	name :=ctx.PostForm("name")
 	password := ctx.PostForm("password")
@@ -35,15 +35,15 @@ func SiginPost(ctx *gin.Context)  {
 		})
 		return
 	}
-	
-	newuser := &models.User{
-		Name:     name,
-		Password: string(hasedPassword),
-		Email:    email,
-		Phone:    phone,
-		Adderss:  adderss,
-	}
-	db.Create(&newuser)
+	models.CreateUser(name,string(hasedPassword),email,phone,adderss)
+	//newuser := &models.User{
+	//	Name:     name,
+	//	Password: string(hasedPassword),
+	//	Email:    email,
+	//	Phone:    phone,
+	//	Adderss:  adderss,
+	//}
+	//db.Create(&newuser)
 	//qdata := name
 	qdata := "http://127.0.0.1:8080/loginsusscess"
 	err = qrcode.CreateQrCode(qdata,name,200,200)
@@ -137,7 +137,7 @@ func LoginPost(ctx *gin.Context) {
 	if err != nil {
 		log.Println(err)
 	}
-	//log.Println(cookie)
+	log.Println(cookie)
 	//log.Print(token)
 	//ctx.Request.Header.Add("Authorization",token)
 	//log.Println(ctx.Request.Header)

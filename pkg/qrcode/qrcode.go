@@ -1,11 +1,14 @@
 package qrcode
 
 import (
+	"encoding/base64"
+	"fmt"
 	"github.com/boombuler/barcode"
 	"github.com/boombuler/barcode/qr"
 	"image/png"
 	"io/ioutil"
 	"os"
+	"qcode/models"
 )
 
 
@@ -34,4 +37,15 @@ func CreateQrCode(data, user string, width, height int) error{
 	}
 
 	return nil
+}
+
+func PushPic(user models.User) string {
+	PicName := user.Name+".png"
+	fileName := "./qrcodepng/"+PicName
+	PicFile, err := ioutil.ReadFile(fileName) // just pass the file name
+	if err != nil {
+		fmt.Print(err)
+	}
+	encodeString := base64.StdEncoding.EncodeToString(PicFile)
+	return encodeString
 }

@@ -3,7 +3,6 @@ package models
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-
 )
 
 type User struct {
@@ -32,4 +31,26 @@ func GetUsers() []User {
 	var users []User
 	DB.Find(&users)
 	return users
+}
+
+func CreateUser(name,hasedPassword,email,phone,adderss string){
+
+	newuser := &User{
+		Name:     name,
+		Password: hasedPassword,
+		Email:    email,
+		Phone:    phone,
+		Adderss:  adderss,
+	}
+	DB.Create(&newuser)
+}
+
+func DelUser(id string)  {
+	DB.Where("id = ?", id).Delete(User{})
+}
+
+func SearchUserById(id string)User  {
+	var user User
+	DB.Where("id = ?", id).First(&user)
+	return user
 }
