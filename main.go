@@ -20,6 +20,7 @@ func main() {
 	r:=gin.Default()
 	r.LoadHTMLGlob("views/*")
 	r.StaticFS("/static",http.Dir("./static"))
+	//r.Static("/static", "./static")
 	//r.Use(middleware.Cors())
 	//r.Use(middleware.JwtVerify)
 	userv1:=r.Group("/user")
