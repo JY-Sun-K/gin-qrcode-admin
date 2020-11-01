@@ -1,7 +1,8 @@
 {{define "excel.tmpl"}}
-<table id="example" class="display" cellspacing="0" width="100%">
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Password</th>
         <th>Email</th>
@@ -12,6 +13,7 @@
     </thead>
     <tfoot>
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Password</th>
         <th>Email</th>
@@ -22,6 +24,8 @@
     <tbody>
     {{range $i,$u :=.user}}
     <tr>
+
+        <td><a href="user/{{$u.ID}}">{{$u.ID}}</a></td>
         <td>{{$u.Name}}</td>
         <td>{{$u.Password}}</td>
         <td>{{$u.Email}}</td>

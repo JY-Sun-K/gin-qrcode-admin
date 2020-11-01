@@ -12,6 +12,7 @@ type User struct {
 	Email string `json:"email"`
 	Phone string `json:"phone"`
 	Adderss string `json:"adderss"`
+	Root bool `json:"root"`
 }
 
 var DB *gorm.DB
@@ -29,7 +30,7 @@ func GetDB() *gorm.DB {
 
 func GetUsers() []User {
 	var users []User
-	DB.Find(&users)
+	DB.Where("root = false").Find(&users)
 	return users
 }
 
@@ -41,6 +42,20 @@ func CreateUser(name,hasedPassword,email,phone,adderss string){
 		Email:    email,
 		Phone:    phone,
 		Adderss:  adderss,
+		Root: false,
+	}
+	DB.Create(&newuser)
+}
+
+func CreateRootUser(name,hasedPassword,email,phone,adderss string){
+
+	newuser := &User{
+		Name:     name,
+		Password: hasedPassword,
+		Email:    email,
+		Phone:    phone,
+		Adderss:  adderss,
+		Root: true,
 	}
 	DB.Create(&newuser)
 }

@@ -4,7 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-	"qcode/controller"
+	"qcode/controller/root"
+	"qcode/controller/user"
 	"qcode/middleware"
 	"qcode/models"
 )
@@ -25,20 +26,27 @@ func main() {
 	//r.Use(middleware.JwtVerify)
 	userv1:=r.Group("/user")
 	{
-		userv1.GET("/signin", controller.SigninGet)
-		userv1.POST("/signin",controller.SiginPost)
+		userv1.GET("/signin", user.SigninGet)
+		userv1.POST("/signin", user.SiginPost)
 
 
-		userv1.GET("/loginsusscess",middleware.AuthMiddleware(),controller.LoginSuccess)
-		userv1.GET("/login",controller.LoginGet)
-		userv1.POST("/login",controller.LoginPost)
+		userv1.GET("/loginsusscess",middleware.AuthMiddleware(), user.LoginSuccess)
+		userv1.GET("/login", user.LoginGet)
+		userv1.POST("/login", user.LoginPost)
 	}
 	admin:=r.Group("/rootuser")
 	{
-		admin.GET("/index",controller.HomeGet)
-		admin.POST("/users/deluser",controller.DelUserPost)
-		admin.GET("/users/deluser",controller.DelUserGet)
-		admin.GET("/user",controller.VisitUser)
+		admin.GET("/index",middleware.RootAuthMiddleware(), root.HomeGet)
+		admin.POST("/users/deluser",middleware.RootAuthMiddleware(), root.DelUserPost)
+		admin.GET("/users/deluser",middleware.RootAuthMiddleware(), root.DelUserGet)
+		admin.GET("/user/:id",middleware.RootAuthMiddleware(), root.VisitUser)
+		admin.GET("/signin", root.SigninGet)
+		admin.POST("/signin", root.SiginPost)
+
+
+
+		admin.GET("/login", root.LoginGet)
+		admin.POST("/login", root.LoginPost)
 	}
 
 

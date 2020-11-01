@@ -1,4 +1,4 @@
-package controller
+package user
 
 import (
 	"encoding/base64"
@@ -45,7 +45,7 @@ func SiginPost(ctx *gin.Context)  {
 	//}
 	//db.Create(&newuser)
 	//qdata := name
-	qdata := "http://127.0.0.1:8080/loginsusscess"
+	qdata := "http://127.0.0.1:8080/user/loginsusscess/"+name
 	err = qrcode.CreateQrCode(qdata,name,200,200)
 	if err != nil {
 		fmt.Println("File reading error", err)
@@ -102,7 +102,7 @@ func LoginPost(ctx *gin.Context) {
 	name :=ctx.PostForm("name")
 	password := ctx.PostForm("password")
 
-	db.Where("name = ?", name).First(&user)
+	db.Where("name = ? AND root = false", name).First(&user)
 	if user.ID == 0 {
 		ctx.JSON(http.StatusNotFound,gin.H{
 			"code":404,
